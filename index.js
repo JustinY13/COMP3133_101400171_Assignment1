@@ -12,14 +12,20 @@ dotenv.config();
 const mongodb_atlas_url = process.env.MONGODB_URL;
 
 //TODO - Replace you Connection String here
-mongoose.connect(mongodb_atlas_url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(success => {
-  console.log('Success Mongodb connection')
-}).catch(err => {
-  console.log('Error Mongodb connection')
-});
+const connectDB = async() => {
+    try{
+      mongoose.connect(mongodb_atlas_url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }).then(success => {
+        console.log('Success Mongodb connection')
+      }).catch(err => {
+        console.log('Error Mongodb connection')
+      });
+    } catch(error) {
+        console.log(`Unable to connect to DB : ${error.message}`);
+      }
+  }
 
 //Define Apollo Server
 
@@ -33,5 +39,7 @@ app.use('*', cors());
 
 
 //Start listen 
-app.listen({ port: process.env.PORT }, () =>
-  console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`));
+app.listen({ port: process.env.PORT }, () => {  
+  console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`)
+  connectDB()
+});
