@@ -1,5 +1,5 @@
 {
-  "name": "w6_3133_nodejs_express_apollo_graphql_template",
+  "name": "w6_3133_nodejs_express_apollo_graphql",
   "version": "1.0.0",
   "description": "Advanve mongodb, mongoos and express",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pritamworld/w7_3133_nodejs_express_apollo_graphql_template.git"
+    "url": "git+https://github.com/pritamworld/w7_3133_nodejs_express_apollo_graphql.git"
   },
   "keywords": [
     "mongoose",
