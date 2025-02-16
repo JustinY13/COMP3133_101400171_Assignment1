@@ -13,11 +13,12 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function (next) {
     this.updated_at = new Date(); 
     if (!this.isModified("password")) return next();
-    const salt = await bcrypt.genSalt(10); // Generate salt
+    const salt = await bcrypt.genSalt(10); 
     this.password = await bcrypt.hash(this.password, salt);
     next();
 });
 
+// Use the bcrypt.compare function to validate the hashed password
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
