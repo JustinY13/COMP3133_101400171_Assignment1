@@ -2,7 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 //import ApolloServer
+const { ApolloServer } = require('apollo-server-express')
 
+const schema = require('./schema')
+const resolver = require('./resolvers')
 
 //Store sensitive information to env variables
 const dotenv = require('dotenv');
@@ -18,7 +21,7 @@ const connectDB = async() => {
         useNewUrlParser: true,
         useUnifiedTopology: true
       }).then(success => {
-        console.log('Success Mongodb connection')
+                console.log('Success Mongodb connection')
       }).catch(err => {
         console.log('Error Mongodb connection')
       });
@@ -28,7 +31,10 @@ const connectDB = async() => {
   }
 
 //Define Apollo Server
-
+const server = new ApolloServer ({
+  typeDefs: schema,
+  resolvers: resolver
+})
 
 //Define Express Server
 const app = express();
@@ -36,7 +42,7 @@ app.use(express.json());
 app.use('*', cors());
 
 //Add Express app as middleware to Apollo Server
-
+server.applyMiddleware({ app })
 
 //Start listen 
 app.listen({ port: process.env.PORT }, () => {  
